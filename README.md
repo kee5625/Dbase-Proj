@@ -13,6 +13,10 @@ The purpose of this project is to develop a backend database for an e-commerce p
 * **Attributes:** Customer ID (Primary Key), First Name, Last Name, Email, Password Hash, Phone Number, Date Joined, Credit Card
 * **Rules:** Email must be unique. A customer can store multiple credit cards.
 
+### CreditCard - Composite Multivalued Attribute of Customer
+* **Attributes:** Card ID (Primary Key), Customer ID (Foreign Key), Card Number, Expiration Date, Cardholder Name, Billing Address
+* **Rules:** Each card must belong to exactly one customer. A customer may store zero, one, or multiple cards.
+
 ### Staff - Strong Entity
 * **Attributes:** Staff ID (Primary Key), First Name, Last Name, Email, Job Title, Hire Date
 * **Rules:** Email must be unique. Staff members manage products and oversee order records.
@@ -21,12 +25,8 @@ The purpose of this project is to develop a backend database for an e-commerce p
 * **Attributes:** Product ID (Primary Key), Product Name, Description, Price, Stock Quantity, Category
 * **Rules:** Price must be greater than zero. Stock quantity updates when purchases are made.
 
-### CreditCard - Weak Entity
-* **Attributes:** Card ID (Primary Key), Customer ID (Foreign Key), Card Number, Expiration Date, Cardholder Name, Billing Address
-* **Rules:** Each card must belong to exactly one customer. A customer may store zero, one, or multiple cards.
-
-### Purchase - Relationship between Customer and CreditCard
-* **Attributes:** Purchase ID (Primary Key), Customer ID (Foreign Key), Card ID (Foreign Key), Purchase Date, Total Amount, Status, PurchaseItem
+### Purchase - Relationship between Customer and Product
+* **Attributes:** Purchase ID (Primary Key), Customer ID (Foreign Key), Product ID (Foreign Key), Payment Method, Purchase Date, Total Amount, Status, PurchaseItem
 * **Rules:** Every purchase must be associated with a valid customer and a stored payment method.
 
 ### PurchaseItem - Composite Multivalued Attribute of Purchase
