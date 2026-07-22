@@ -9,28 +9,28 @@ The purpose of this project is to develop a backend database for an e-commerce p
 
 ## 3. Data Requirements
 
-### Customer
-* **Attributes:** Customer ID (Primary Key), First Name, Last Name, Email, Password Hash, Phone Number, Date Joined
+### Customer - Stong Entity
+* **Attributes:** Customer ID (Primary Key), First Name, Last Name, Email, Password Hash, Phone Number, Date Joined, Credit Card
 * **Rules:** Email must be unique. A customer can store multiple credit cards.
 
-### Staff
+### Staff - Strong Entity
 * **Attributes:** Staff ID (Primary Key), First Name, Last Name, Email, Job Title, Hire Date
 * **Rules:** Email must be unique. Staff members manage products and oversee order records.
 
-### Product
+### Product - Strong Entity
 * **Attributes:** Product ID (Primary Key), Product Name, Description, Price, Stock Quantity, Category
 * **Rules:** Price must be greater than zero. Stock quantity updates when purchases are made.
 
-### CreditCard
+### CreditCard - Weak Entity
 * **Attributes:** Card ID (Primary Key), Customer ID (Foreign Key), Card Number, Expiration Date, Cardholder Name, Billing Address
 * **Rules:** Each card must belong to exactly one customer. A customer may store zero, one, or multiple cards.
 
-### Purchase
-* **Attributes:** Purchase ID (Primary Key), Customer ID (Foreign Key), Card ID (Foreign Key), Purchase Date, Total Amount, Status
+### Purchase - Relationship between Customer and CreditCard
+* **Attributes:** Purchase ID (Primary Key), Customer ID (Foreign Key), Card ID (Foreign Key), Purchase Date, Total Amount, Status, PurchaseItem
 * **Rules:** Every purchase must be associated with a valid customer and a stored payment method.
 
-### PurchaseItem (Junction Entity)
-* **Attributes:** PurchaseItem ID (Primary Key), Purchase ID (Foreign Key), Product ID (Foreign Key), Quantity, Unit Price
+### PurchaseItem - Composite Multivalued Attribute of Purchase
+* **Attributes:** Product ID (Foreign Key), Quantity, Unit Price
 * **Rules:** Captures individual products included in a specific purchase transaction.
 
 ## 4. System Use Cases
