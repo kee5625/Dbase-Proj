@@ -31,7 +31,7 @@ The purpose of this project is to develop a backend database for an e-commerce p
 
 ### PurchaseItem - Weak Entity (dependent on Purchase and Product)
 * **Attributes:** Purchase ID (Foreign Key), Product ID (Foreign Key), Quantity, Unit Price
-* **Rules:** Composite primary key is (Purchase ID, Product ID). Captures individual products included in a specific purchase transaction. Cannot exist without both a parent Purchase and a referenced Product. This entity resolves the many-to-many relationship between Purchase and Product: a purchase can contain many products, and a product can appear in many purchases. Participation: total on the PurchaseItem side for both relationships and partial on the Product side.
+* **Rules:** Composite primary key is (Purchase ID, Product ID). Captures individual products included in a specific purchase transaction. Cannot exist without both a parent Purchase and a referenced Product. 
 
 ## 4. Relationships Summary
 | Relationship | Entities | Cardinality | Participation |
@@ -64,6 +64,3 @@ The purpose of this project is to develop a backend database for an e-commerce p
 * **Actor:** Staff
 * **Description:** Staff members view transaction history, order details, and sales totals across the system.
 
-## 6. Technical Constraints
-* **DBMS:** MySQL or PostgreSQL.
-* **Data Integrity:** Primary keys must uniquely identify each record. Foreign keys must enforce referential integrity across related tables. Weak entities (CreditCard, PurchaseItem) must cascade appropriately on deletion of their owning entity, per business rule.
