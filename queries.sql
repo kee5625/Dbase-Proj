@@ -48,8 +48,15 @@ ORDER BY p.stock_quantity;
 -- ----------------------------------------------------------------------------
 -- Query 4 — Customer overview: saved cards, order count, lifetime spend.
 -- Tables: Customer, CreditCard, Purchase
--- TODO(teammate): mirror customers_overview() from db/queries.py
 -- ----------------------------------------------------------------------------
+SELECT c.customer_id,
+       c.first_name || ' ' || c.last_name AS name,
+       c.email,
+       (SELECT COUNT(*) FROM CreditCard cc WHERE cc.customer_id = c.customer_id) AS card_count,
+       (SELECT COUNT(*) FROM Purchase p WHERE p.customer_id = c.customer_id) AS order_count,
+       COALESCE((SELECT SUM(total_amount) FROM Purchase p WHERE p.customer_id = c.customer_id), 0.0) AS lifetime_spend
+FROM Customer c
+ORDER BY c.last_name, c.first_name;
 
 
 -- ----------------------------------------------------------------------------

@@ -125,7 +125,17 @@ def customers_overview(conn: sqlite3.Connection) -> list[sqlite3.Row]:
         customer_id, name, email, card_count, order_count, lifetime_spend
 
     """
-    raise NotImplementedError("Teammate: see docs/TEAMMATE_TASKS.md")
+    sql = """
+        SELECT c.customer_id,
+               c.first_name || ' ' || c.last_name AS name,
+               c.email,
+               (SELECT COUNT(*) FROM CreditCard cc WHERE cc.customer_id = c.customer_id) AS card_count,
+               (SELECT COUNT(*) FROM Purchase p WHERE p.customer_id = c.customer_id) AS order_count,
+               COALESCE((SELECT SUM(total_amount) FROM Purchase p WHERE p.customer_id = c.customer_id), 0.0) AS lifetime_spend
+        FROM Customer c
+        ORDER BY c.last_name, c.first_name
+    """
+    return query(conn, sql)
 
 
 def purchases_with_customer(conn: sqlite3.Connection) -> list[sqlite3.Row]:
