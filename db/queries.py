@@ -149,7 +149,20 @@ def purchases_with_customer(conn: sqlite3.Connection) -> list[sqlite3.Row]:
       - item_count comes from PurchaseItem; group by purchase.
       - Newest orders first.
     """
-    raise NotImplementedError("Teammate: see docs/TEAMMATE_TASKS.md")
+    sql = """
+        SELECT p.purchase_id,
+               c.first_name || ' ' || c.last_name AS customer,
+               p.purchase_date,
+               p.total_amount,
+               p.status,
+               SUM(pi.quantity) AS item_count
+        FROM Purchase p
+        JOIN Customer c ON p.customer_id = c.customer_id
+        JOIN PurchaseItem pi ON p.purchase_id = pi.purchase_id
+        GROUP BY p.purchase_id, customer, p.purchase_date, p.total_amount, p.status
+        ORDER BY p.purchase_date DESC
+    """
+    return query(conn, sql)
 
 
 def order_line_items(conn: sqlite3.Connection, purchase_id: int) -> list[sqlite3.Row]:
