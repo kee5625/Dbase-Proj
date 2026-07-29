@@ -6,7 +6,7 @@ from textual.widgets import Button, DataTable, Footer, Header, Input, Static
 
 from db import get_connection, init_db
 from db.connection import DB_PATH
-from db.queries import (products_by_category, purchases_with_customer, sales_totals_by_customer)
+from db.queries import low_stock, products_with_staff, search_products
 
 
 class EcommerceApp(App):
@@ -53,17 +53,17 @@ class EcommerceApp(App):
     # actions (keyboard)
 
     def action_show_purchases(self) -> None:
-        self._render(purchases_with_customer(self.conn), "Purchases JOIN Customer")
+        self._render(products_with_staff(self.conn), "Products JOIN Staff")
 
     def action_show_sales(self) -> None:
-        self._render(sales_totals_by_customer(self.conn), "Sales totals by customer")
+        self._render(low_stock(self.conn, 20), "Low stock (< 20)")
 
     # events
 
     def on_button_pressed(self, event: Button.Pressed) -> None:
         if event.button.id == "filter":
             category = self.query_one("#category", Input).value.strip() or "Electronics"
-            self._render(products_by_category(self.conn, category), f"Products in {category!r}")
+            self._render(search_products(self.conn, category=category), f"Products in {category!r}")
 
     def on_unmount(self) -> None:
         if getattr(self, "conn", None):
