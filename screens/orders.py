@@ -30,5 +30,8 @@ class OrdersTab(Tab):
         self.status(f"Orders — {len(rows)} rows")
 
     def on_data_table_row_highlighted(self, event: DataTable.RowHighlighted) -> None:
-        
-        pass
+        if event.control.id == "table":
+            purchase_id = self._ids[event.cursor_row]
+            from db.queries import order_line_items
+            items = order_line_items(self.conn, purchase_id)
+            fill_table(self.query_one("#items", DataTable), items)
