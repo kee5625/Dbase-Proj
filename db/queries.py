@@ -193,4 +193,17 @@ def customers_buying_over(conn: sqlite3.Connection, min_price: float = 100.0) ->
     Required columns:
         customer, product_name, price, quantity, purchase_date
     """
-    raise NotImplementedError("Teammate: see docs/TEAMMATE_TASKS.md")
+    sql = """
+        SELECT c.first_name || ' ' || c.last_name AS customer,
+               pr.product_name,
+               pi.unit_price AS price,
+               pi.quantity,
+               p.purchase_date
+        FROM Customer c
+        JOIN Purchase p ON c.customer_id = p.customer_id
+        JOIN PurchaseItem pi ON p.purchase_id = pi.purchase_id
+        JOIN Product pr ON pi.product_id = pr.product_id
+        WHERE pi.unit_price > ?
+        ORDER BY p.purchase_date DESC, customer, pr.product_name
+    """
+    return query(conn, sql, (min_price,))

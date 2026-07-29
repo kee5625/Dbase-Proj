@@ -95,5 +95,15 @@ ORDER BY pr.product_name;
 -- Query 7 — Customers alongside the products they bought costing over $100.
 --           (The example query given in the assignment brief.)
 -- Tables: Customer, Purchase, PurchaseItem, Product   -- four-table join
--- TODO(teammate): mirror customers_buying_over() from db/queries.py
 -- ----------------------------------------------------------------------------
+SELECT c.first_name || ' ' || c.last_name AS customer,
+       pr.product_name,
+       pi.unit_price AS price,
+       pi.quantity,
+       p.purchase_date
+FROM Customer c
+JOIN Purchase p ON c.customer_id = p.customer_id
+JOIN PurchaseItem pi ON p.purchase_id = pi.purchase_id
+JOIN Product pr ON pi.product_id = pr.product_id
+WHERE pi.unit_price > 100.0
+ORDER BY p.purchase_date DESC, customer, pr.product_name;
