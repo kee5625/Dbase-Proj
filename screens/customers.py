@@ -14,7 +14,7 @@ from .base import Tab, fill_table
 class CustomersTab(Tab):
     def compose(self) -> ComposeResult:
         yield DataTable(id="table", cursor_type="row", zebra_stripes=True)
-        yield Static("", id="detail")
+        yield DataTable(id="detail", cursor_type="row", zebra_stripes=True)
         yield Static("", classes="status")
 
     def on_mount(self) -> None:
@@ -31,5 +31,8 @@ class CustomersTab(Tab):
         self.status(f"Customers — {len(rows)} rows")
 
     def on_data_table_row_highlighted(self, event: DataTable.RowHighlighted) -> None:
-        
-        pass
+        if event.control.id == "table":
+            customer_id = self._ids[event.cursor_row]
+            from db.queries import cards_for_customer
+            cards = cards_for_customer(self.conn, customer_id)
+            fill_table(self.query_one("#detail", DataTable), cards)
