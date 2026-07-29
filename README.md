@@ -64,3 +64,85 @@ The purpose of this project is to develop a backend database for an e-commerce p
 * **Actor:** Staff
 * **Description:** Staff members view transaction history, order details, and sales totals across the system.
 
+# Running the Application
+
+A terminal application for the e-commerce database: browse and manage the
+product catalog, place orders against a customer's saved credit card, and review
+customers and order history.
+
+## What you need
+
+* **Python 3.10 or newer.** Check with `python --version`. If that command is not
+  found, try `python3 --version`, and use `python3` everywhere below.
+* **Nothing else.** The project uses SQLite, which is part of the Python standard
+  library. There is no database server to install, no account to create, and no
+  connection string to configure.
+
+## Setup
+
+Clone the repository and move into it:
+
+```bash
+git clone https://github.com/<user>/Dbase-Proj.git
+```
+
+```bash
+cd Dbase-Proj
+```
+
+Create a virtual environment so the install does not touch your system Python.
+
+On Windows:
+
+```bash
+python -m venv .venv && .venv\Scripts\activate
+```
+
+On macOS or Linux:
+
+```bash
+python3 -m venv .venv && source .venv/bin/activate
+```
+
+Install the one dependency:
+
+```bash
+pip install -r requirements.txt
+```
+
+## Start it
+
+```bash
+python app.py
+```
+
+Press `q` to quit and `r` to reload the data in every tab.
+
+## Starting over
+
+To wipe the database and reload the original sample data:
+
+```bash
+python app.py --reset
+```
+
+## Running the SQL on its own
+
+The queries the application uses are also collected in `queries.sql` so they can
+be run directly, without going through Python:
+
+```bash
+sqlite3 db/ecommerce.db ".headers on" ".mode column" ".read queries.sql"
+```
+
+## Project layout
+
+| Path | Contents |
+|---|---|
+| `db/schema.sql` | Table definitions and sample data |
+| `db/connection.py` | SQLite connection handling |
+| `db/queries.py` | Every read query |
+| `db/writes.py` | Inserts, updates, deletes, and the checkout transaction |
+| `screens/` | One module per tab |
+| `app.py` | Application entry point |
+| `queries.sql` | The queries as standalone SQL |
