@@ -1,0 +1,8 @@
+# SQLite DB is a derived artifact — rebuilt from db/schema.sql via reset_db.py
+db/*.db
+
+# Python
+__pycache__/
+*.pyc
+.venv/
+venv/
