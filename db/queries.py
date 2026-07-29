@@ -172,7 +172,18 @@ def order_line_items(conn: sqlite3.Connection, purchase_id: int) -> list[sqlite3
         product_name, category, quantity, unit_price, line_total
 
     """
-    raise NotImplementedError("Teammate: see docs/TEAMMATE_TASKS.md")
+    sql = """
+        SELECT pr.product_name,
+               pr.category,
+               pi.quantity,
+               pi.unit_price,
+               (pi.quantity * pi.unit_price) AS line_total
+        FROM PurchaseItem pi
+        JOIN Product pr ON pi.product_id = pr.product_id
+        WHERE pi.purchase_id = ?
+        ORDER BY pr.product_name
+    """
+    return query(conn, sql, (purchase_id,))
 
 
 def customers_buying_over(conn: sqlite3.Connection, min_price: float = 100.0) -> list[sqlite3.Row]:

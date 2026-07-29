@@ -79,8 +79,16 @@ ORDER BY p.purchase_date DESC;
 -- ----------------------------------------------------------------------------
 -- Query 6 — Itemized breakdown of a single order.
 -- Tables: PurchaseItem, Product
--- TODO(teammate): mirror order_line_items() from db/queries.py
 -- ----------------------------------------------------------------------------
+SELECT pr.product_name,
+       pr.category,
+       pi.quantity,
+       pi.unit_price,
+       (pi.quantity * pi.unit_price) AS line_total
+FROM PurchaseItem pi
+JOIN Product pr ON pi.product_id = pr.product_id
+WHERE pi.purchase_id = 1
+ORDER BY pr.product_name;
 
 
 -- ----------------------------------------------------------------------------
