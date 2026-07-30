@@ -9,7 +9,7 @@ from textual.widgets import Button, DataTable, Input, Static
 from db.queries import products_with_staff, search_products
 from db.writes import WriteError, add_product, delete_product, update_product
 
-from .base import Tab, fill_table
+from .base import TabBody, fill_table
 
 
 def _to_float(raw: str) -> float | None:
@@ -32,7 +32,7 @@ def _to_int(raw: str) -> int | None:
         raise WriteError(f"{raw!r} is not a whole number.") from None
 
 
-class ProductsTab(Tab):
+class ProductsTab(TabBody):
     def compose(self) -> ComposeResult:
         with Horizontal(classes="row"):
             yield Input(placeholder="name contains", id="f_name")

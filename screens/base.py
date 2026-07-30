@@ -26,7 +26,7 @@ def format_cell(value: object) -> str:
     return str(value)
 
 
-class Tab(Vertical):
+class TabBody(Vertical):
     """Base for every tab. Shares the app's single database connection."""
 
     @property

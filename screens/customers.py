@@ -8,10 +8,10 @@ from textual.widgets import DataTable, Static
 
 from db.queries import customers_overview
 
-from .base import Tab, fill_table
+from .base import TabBody, fill_table
 
 
-class CustomersTab(Tab):
+class CustomersTab(TabBody):
     def compose(self) -> ComposeResult:
         yield DataTable(id="table", cursor_type="row", zebra_stripes=True)
         yield DataTable(id="detail", cursor_type="row", zebra_stripes=True)

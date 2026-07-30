@@ -6,7 +6,7 @@ from textual.app import App, ComposeResult
 from textual.widgets import Footer, Header, TabbedContent, TabPane
 
 from db.connection import DB_PATH, get_connection, init_db
-from screens.base import Tab
+from screens.base import TabBody
 from screens.checkout import CheckoutTab
 from screens.customers import CustomersTab
 from screens.orders import OrdersTab
@@ -64,7 +64,7 @@ class EcommerceApp(App):
 
     def action_refresh(self) -> None:
         """Re-run the query behind every tab that has one."""
-        for tab in self.query(Tab):
+        for tab in self.query(TabBody):
             if hasattr(tab, "refresh_table"):
                 tab.refresh_table()
 

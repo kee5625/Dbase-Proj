@@ -7,10 +7,10 @@ from textual.widgets import DataTable, Static
 
 from db.queries import purchases_with_customer
 
-from .base import Tab, fill_table
+from .base import TabBody, fill_table
 
 
-class OrdersTab(Tab):
+class OrdersTab(TabBody):
     def compose(self) -> ComposeResult:
         yield DataTable(id="table", cursor_type="row", zebra_stripes=True)
         yield DataTable(id="items", cursor_type="row", zebra_stripes=True)

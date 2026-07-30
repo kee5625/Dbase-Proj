@@ -9,10 +9,10 @@ from textual.widgets import Button, DataTable, Input, Select, Static
 from db.queries import cards_for_customer, list_customers, mask_card, products_with_staff
 from db.writes import WriteError, place_order
 
-from .base import Tab, format_cell
+from .base import TabBody, format_cell
 
 
-class CheckoutTab(Tab):
+class CheckoutTab(TabBody):
     def compose(self) -> ComposeResult:
         with Horizontal(classes="row"):
             yield Select([], prompt="Customer", id="customer")
