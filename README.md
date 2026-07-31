@@ -1,5 +1,22 @@
 # E-Commerce Database System Requirements Document
 
+
+## Project layout
+
+| Path | Contents |
+|---|---|
+| `db/schema.sql` | Database Implementation - Table definitions and sample data |
+| `db/connection.py` | Business Logic - SQLite connection handling |
+| `db/queries.py` | Database Interaction - Every read query |
+| `db/writes.py` | Database Interaction - Inserts, updates, deletes, and the checkout transaction |
+| `screens/` | Business Logic - One module per tab |
+| `app.py` | Business Logic - Application entry point |
+| `queries.sql` | Database Implementation - The queries as standalone SQL |
+| `README.md` | Requirements Gathering - Project Management and Setup |
+| `DB_Proj_ER_Diagrams.pdf` | ER Diagram - Exported PDF  |
+| `DB_Schemas.pdf` | Schema Design - Exported PDF |
+
+
 ## 1. System Overview
 The purpose of this project is to develop a backend database for an e-commerce platform. The system will handle customer accounts, staff operations, product inventory, customer payment methods, and sales transactions.
 
@@ -44,23 +61,19 @@ The purpose of this project is to develop a backend database for an e-commerce p
 
 ## 5. System Use Cases
 
-### Use Case 1: Account & Payment Management
-* **Actor:** Customer
-* **Description:** Customers register an account and can attach one or more credit cards to their profile for future checkout operations.
-
-### Use Case 2: Product Catalog Browsing
+### Use Case 1: Product Catalog Browsing
 * **Actor:** Customer
 * **Description:** Customers view available products, filter items by category, and search by product name or price.
 
-### Use Case 3: Product Inventory Management
+### Use Case 2: Product Inventory Management
 * **Actor:** Staff
 * **Description:** Staff members add new items to the inventory, update existing product details (such as price and description), and modify stock levels.
 
-### Use Case 4: Order Processing
+### Use Case 3: Order Processing
 * **Actor:** Customer
 * **Description:** Customers select products, choose a saved payment method, and complete a purchase. The system records the transaction, itemizes each product in the purchase, and decrements product inventory.
 
-### Use Case 5: Transaction Oversight
+### Use Case 4: Order History
 * **Actor:** Staff
 * **Description:** Staff members view transaction history, order details, and sales totals across the system.
 
@@ -74,9 +87,8 @@ customers and order history.
 
 * **Python 3.10 or newer.** Check with `python --version`. If that command is not
   found, try `python3 --version`, and use `python3` everywhere below.
-* **Nothing else.** The project uses SQLite, which is part of the Python standard
-  library. There is no database server to install, no account to create, and no
-  connection string to configure.
+* **Nothing else.** We used SQLite, which is part of the Python standard
+  library so there are no extra steps required.
 
 ## Setup
 
@@ -135,14 +147,4 @@ be run directly, without going through Python:
 sqlite3 db/ecommerce.db ".headers on" ".mode column" ".read queries.sql"
 ```
 
-## Project layout
 
-| Path | Contents |
-|---|---|
-| `db/schema.sql` | Table definitions and sample data |
-| `db/connection.py` | SQLite connection handling |
-| `db/queries.py` | Every read query |
-| `db/writes.py` | Inserts, updates, deletes, and the checkout transaction |
-| `screens/` | One module per tab |
-| `app.py` | Application entry point |
-| `queries.sql` | The queries as standalone SQL |
